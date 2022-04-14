@@ -1,0 +1,12 @@
+.logo {
+  width: auto;
+  height: 200px;
+  transition: all .5s ease;
+  float: right; }
+
+.title {
+  font-size: 14pt;
+  font-family: Calibri, serif; }
+
+.date {
+  color: blue; }

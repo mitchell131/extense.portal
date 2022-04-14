@@ -1,0 +1,28 @@
+image: atlassian/default-image:2
+
+pipelines:
+ branches: #these will run on every push of the branch
+  '{master}':
+  - step:
+     name: Pipeline for master builds
+     script:
+     ## build the header strings for CURL
+     - "ORIG=\"Origin: $TC_URL\""                 
+     - "AUTH=\"Authorization: Bearer $TC_TOKEN\""
+     - "TEXT=\"Content-Type: text/plain\""        
+
+     ## build the path to the TeamCity API to set parameters on the build
+     - "SETP=\"--request PUT $TC_URL/app/rest/buildTypes/id:$TC_BUILD_ID/parameters\"" 
+
+     ## push bitbucket pull-request variables to TeamCity build
+     - "curl -H \"$ORIG\" -H \"$AUTH\" -H \"$TEXT\" $SETP/BITBUCKET_BRANCH                --data $BITBUCKET_BRANCH"
+     - "curl -H \"$ORIG\" -H \"$AUTH\" -H \"$TEXT\" $SETP/BITBUCKET_COMMIT                --data $BITBUCKET_COMMIT"
+     - "curl -H \"$ORIG\" -H \"$AUTH\" -H \"$TEXT\" $SETP/BITBUCKET_REPO_UUID             --data $BITBUCKET_REPO_UUID"
+     - "curl -H \"$ORIG\" -H \"$AUTH\" -H \"$TEXT\" $SETP/BITBUCKET_REPO_OWNER_UUID       --data $BITBUCKET_REPO_OWNER_UUID"
+
+     ## Build the path to the TeamCity api for commit Hook notifications
+     - "HOOK=app/rest/vcs-root-instances/commitHookNotification" 
+
+     ## Send a commit notification to the TeamCity VCS root. 
+     ## the build must have an appropriate VCS trigger configured
+     - "curl -H \"$ORIG\" -H \"$AUTH\" -X POST \"$TC_URL/$HOOK?locator=vcsRoot:(id:$TC_VCS_ROOT)\""
