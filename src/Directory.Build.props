@@ -1,0 +1,30 @@
+<Project>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<PackageIcon>extense.png</PackageIcon>
+		<PackageIconUrl>https://fb-ext.azureedge.net/public/extense.png</PackageIconUrl>
+		<PackageIconFullPath>$(MSBuildThisFileDirectory)../extense.png</PackageIconFullPath>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://bitbucket.org/fabillio/extense.portal</PackageProjectUrl>
+		<IncludeSource>true</IncludeSource>
+		<IncludeSymbols>true</IncludeSymbols>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<langVersion>latest</langVersion>
+		<NoWarn>NU5105;1591</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageOutputPath Condition="'$(BuildArtifactsDirectory)'==''">$(MSBuildThisFileDirectory)../artifacts/$(Configuration)</PackageOutputPath>
+		<PackageOutputPath Condition="'$(BuildArtifactsDirectory)'!=''">$(BuildArtifactsDirectory)</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+	<!-- Once MSBuild finds a Directory.Build.props file, it stops further scanning. 
+       Place this code to continue scanning and merge into the outer file. -->
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+</Project>
