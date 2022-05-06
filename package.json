@@ -15,6 +15,7 @@
   "version": "1.0.1",
   "description": "Webpack 6 boilerplate with React 17, Tailwind 2, using babel, sass, with HMR and an optimized production build",
   "dependencies": {
+    "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "tailwindcss": "^2.2.7"
