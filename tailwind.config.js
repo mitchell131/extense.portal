@@ -8,10 +8,13 @@ module.exports = {
     extend: {
       colors: {
         teal:colors.teal,
-        'orange': '#E3A60D'
+        white:colors.white,
+        'orange': '#E3A60D',
+        'grey': '#7E91A1'
       },
       minWidth: {
         '400': '400px',
+        '600': '600px',
       }
     },
   },

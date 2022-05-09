@@ -1,7 +1,15 @@
+$main-grey: #7E91A1;
+
 
 .wrapper {
     background-image: url('./assets/img/main-bg.jpg');
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
     background-color: #cccccc;
+}
+
+footer {
+   ul > li{
+        color: $main-grey;
+    }
 }
