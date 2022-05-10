@@ -1,31 +1,38 @@
-import { Component } from 'react'
+import { Component , useState } from 'react'
 import './app.styles.scss'
 import Image from './shared/image.jsx'
 import Text from './shared/text.jsx'
+import classNames from 'classnames';
 
-class App extends Component {
-  render() {
+const App = () => {
+
+const[isDisabled,setIsdisabled] = useState(false);
+
+const button_class_names = classNames('text-center', 'font-bold',  'bg-orange',  'cursor-pointer',  
+                    !isDisabled && 'hover:bg-grey', 'rounded-xl', 'relative');
+
     return (
       <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
-        <div className='w-3/5 min-w-600 border shadow-lg'>
-        <div className='text-black font-bold md:p-12 lg:p-16 p-4 bg-white bg-opacity-50'>    
+        <div className='w-3/5 min-w-650 border shadow-lg'>
+        <div className='text-black md:p-12 lg:p-16 p-4 bg-white bg-opacity-50'>    
             <div className='container mx-auto 2xl'>
                 <div className='header w-2/6 m-auto mt-4'>  
                 <Image url='./assets/img/main-logo.png'/>
                 </div>
                 <div class="grid grid-cols-3 gap-4 mt-16">
-                  <div className='text-center bg-orange hover:bg-grey cursor-pointer rounded-xl'>
+                  <div className='text-center font-bold  bg-orange hover:bg-grey cursor-pointer rounded-xl' onClick={()=>console.log('Hello')}>
                     <Image url='./assets/img/bullets.png' width='150px' className='m-auto'/>
                     <Text as='p' size='text-lg' className='mb-4'>Dokumentarkiv</Text>
                    </div>
-                  <div className='text-center bg-orange hover:bg-grey cursor-pointer rounded-xl'>
+                  <button className='text-center font-bold bg-orange hover:bg-grey cursor-pointer rounded-xl' onClick={()=>console.log('Hello')}>
                     <Image url='./assets/img/bino.png' width='150px' className='m-auto'/>
                     <Text as='p' size='text-lg' className='mb-4'>Fakturaoppfølging</Text>
-                    </div>
-                  <div className='text-center bg-orange hover:bg-grey cursor-pointer rounded-xl'>
+                    </button>
+                  <button className={button_class_names} disabled={isDisabled} onClick={()=>setIsdisabled((state)=>!state)}>
+                   { isDisabled && <div id="overlay"></div> }
                     <Image url='./assets/img/watch.png' width='150px' className='m-auto'/>
                     <Text size='text-lg' as='p' className='mb-4'>Inkasso</Text>
-                    </div>
+                    </button>
                 </div>
             </div>
             </div>
@@ -49,6 +56,5 @@ class App extends Component {
       </div>
     )
   }
-}
 
 export default App
