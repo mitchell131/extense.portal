@@ -1,4 +1,4 @@
-import { useState , useEffect} from 'react'
+import { useState , useEffect, useRef } from 'react'
 import './app.styles.scss'
 import Image from './shared/image.jsx'
 import Text from './shared/text.jsx'
@@ -10,7 +10,7 @@ import LoadingSpinner from "./components/spinner/loadingSpinner.js";
 const App = () => {
   const [isDisabled, setIsdisabled] = useState(false)
   const [error, setError] = useState(false)
-
+  
   const {
     addToast,
     removeToast,
@@ -28,6 +28,9 @@ const App = () => {
     'rounded-xl',
     'relative'
   )
+
+  const ref = useRef(false);
+
   const auth = useAuth()
   console.log(auth);
 
@@ -38,23 +41,36 @@ const App = () => {
   //   }
   //   }, [auth]);
 
-  useEffect(() => { 
-    setError(auth?.error?.message)
-    addToast(auth.error.message, { appearance: 'error',autoDismiss: true})
-  }, [auth.error]);
+  // useEffect(() => { 
+  //   if(auth?.error?.message === '')
+  //   addToast(auth?.error?.message, { appearance: 'error',autoDismiss: true})
+  // }, [auth?.error]);
 
 
 
-  if (auth.isLoading) {
-    return <div>Loading...</div>
-  } 
+  // if (auth.isLoading) {
+  //   return <div>Loading...</div>
+  // } 
 
-  if (!auth.isAuthenticated) {
-    auth.signinRedirect();
+  // if (!auth.isAuthenticated && !auth.isLoading) {
+  //     auth.signinRedirect()
+  //     .then(function(finalResult) {
+  //       console.log('Got the final result: ' + finalResult);
+  //     })
+  //     .catch(() => {
+  //       addToast('Hello', { appearance: 'error',autoDismiss: true})
+  //     });
+  // }
+
+   if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
+      auth.signinRedirect().catch((resp) =>  addToast('Server Offline', { appearance: 'error',autoDismiss: true}))
+      ref.current = true
   }
 
-  if (auth.isAuthenticated) {
-    window.history.pushState({}, '', '/');
+
+  if (auth.isAuthenticated)
+    window.history.pushState({}, '', '/'); 
+
 
   return (
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
@@ -66,7 +82,7 @@ const App = () => {
           <div className='header w-2/6 m-auto mt-4'>
             <Image url='./assets/img/main-logo.png' />
           </div>
-          <div class='grid grid-cols-3 gap-4 mt-16'>
+          <div className='grid grid-cols-3 gap-4 mt-16'>
             <button
               className='text-center font-bold  bg-yellow hover:bg-orange cursor-pointer rounded-xl'
               onClick={() => console.log('Hello')}
@@ -111,10 +127,10 @@ const App = () => {
           </div>
         </div>
       </div>
-      <footer class='p-4 shadow p-6 justify-center bg-white bg-opacity-75'>
-        <ul class='flex flex-wrap items-center mt-3 text-sm !text-orange justify-center relative'>
+      <footer className='p-4 shadow p-6 justify-center bg-white bg-opacity-75'>
+        <ul className='flex flex-wrap items-center mt-3 text-sm !text-orange justify-center relative'>
           <li>
-            <a href='#' class='mr-2 hover:underline mr-6 !text-orange'>
+            <a href='#' className='mr-2 hover:underline mr-6 !text-orange'>
               <Image
                 url='./assets/img/main-slash.png'
                 className='absolute -bottom-1/4'
@@ -123,12 +139,12 @@ const App = () => {
             </a>
           </li>
           <li>
-            <a href='#' class='mr-3 md:mr-3 !text-orange'>
+            <a href='#' className='mr-3 md:mr-3 !text-orange'>
               Velkommen til
             </a>
           </li>
           <li className='flex justify-center items-center'>
-            <a href='#' class='mr-4 hover:underline md:mr-6 !text-orange'>
+            <a href='#' className='mr-4 hover:underline md:mr-6 !text-orange'>
               <Image url='./assets/img/main-logo.png' width='110px' />
             </a>
           </li>
@@ -139,7 +155,6 @@ const App = () => {
     </div>
    )
  }
-}
 export default App
 
 // to show portal is loading is false and auth.isauthenticated. jekk !isauthenticated && signinredirect
