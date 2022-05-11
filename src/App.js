@@ -38,7 +38,10 @@ const App = () => {
   //   }
   //   }, [auth]);
 
-  useEffect(() => { setError(auth?.error?.message)}, [auth.error]);
+  useEffect(() => { 
+    setError(auth?.error?.message)
+    addToast(auth.error.message, { appearance: 'error',autoDismiss: true})
+  }, [auth.error]);
 
 
 
@@ -46,14 +49,17 @@ const App = () => {
     return <div>Loading...</div>
   } 
 
-  // if (!auth.isAuthenticated) {
-  //   auth.signinRedirect();
-  // }
+  if (!auth.isAuthenticated) {
+    auth.signinRedirect();
+  }
 
-  if (true) {
+  if (auth.isAuthenticated) {
     window.history.pushState({}, '', '/');
 
-    const renderPortal = ( 
+  return (
+    <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
+      {auth.isLoading && <LoadingSpinner />}
+      {!auth.isLoading && auth.isAuthenticated &&
       <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
       <div className='text-black lg:p-16 p-4 bg-white bg-opacity-50'>
         <div className='container mx-auto 2xl'>
@@ -129,13 +135,7 @@ const App = () => {
         </ul>
       </footer>
     </div>
-    )
-
-
-  return (
-    <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
-      {auth.isLoading ? <LoadingSpinner /> : renderPortal}
-      {auth.error && addToast(error, { appearance: 'error',autoDismiss: true})}
+  }
     </div>
    )
  }
