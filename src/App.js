@@ -22,9 +22,11 @@ const App = () => {
   const button_class_names = classNames(
     'text-center',
     'font-bold',
-    'bg-yellow',
+    'bg-orange',
     'cursor-pointer',
-    !isDisabled && 'hover:bg-orange',
+    'btn',
+    'border', 
+    !isDisabled && 'hover:border-grey-200',
     'rounded-xl',
     'relative'
   )
@@ -40,11 +42,6 @@ const App = () => {
   //     auth.signinRedirect();
   //   }
   //   }, [auth]);
-
-  // useEffect(() => { 
-  //   if(auth?.error?.message === '')
-  //   addToast(auth?.error?.message, { appearance: 'error',autoDismiss: true})
-  // }, [auth?.error]);
 
 
 
@@ -84,9 +81,10 @@ const App = () => {
           </div>
           <div className='grid grid-cols-3 gap-4 mt-16'>
             <button
-              className='text-center font-bold  bg-yellow hover:bg-orange cursor-pointer rounded-xl'
+              className='btn text-center font-bold  bg-orange cursor-pointer rounded-xl'
               onClick={() => console.log('Hello')}
             >
+              <span>
               <Image
                 url='./assets/img/bullets.png'
                 width='150px'
@@ -95,11 +93,12 @@ const App = () => {
               <Text as='p' size='text-lg' className='mb-4'>
                 Dokumentarkiv
               </Text>
+              </span>
             </button>
             <button
-              className='text-center font-bold bg-yellow hover:bg-orange cursor-pointer rounded-xl'
+              className='btn text-center font-bold bg-orange hover:border-4 cursor-pointer rounded-xl'
               onClick={() => console.log('Hello')}
-            >
+            ><span>
               <Image
                 url='./assets/img/bino.png'
                 width='150px'
@@ -108,12 +107,14 @@ const App = () => {
               <Text as='p' size='text-lg' className='mb-4'>
                 Fakturaoppfølging
               </Text>
+              </span>
             </button>
             <button
               className={button_class_names}
               disabled={isDisabled}
               onClick={() => setIsdisabled((state) => !state)}
             >
+              <span>
               {isDisabled && <div id='overlay'></div>}
               <Image
                 url='./assets/img/watch.png'
@@ -123,6 +124,7 @@ const App = () => {
               <Text size='text-lg' as='p' className='mb-4'>
                 Inkasso
               </Text>
+              </span>
             </button>
           </div>
         </div>
@@ -156,5 +158,3 @@ const App = () => {
    )
  }
 export default App
-
-// to show portal is loading is false and auth.isauthenticated. jekk !isauthenticated && signinredirect
