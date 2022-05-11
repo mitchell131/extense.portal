@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom'
 import App from './App'
 import { AuthProvider } from "react-oidc-context";
+import { ToastProvider, useToasts } from 'react-toast-notifications';
 
 import './index.scss'
 
@@ -19,6 +20,8 @@ const oidcConfig = {
 
 ReactDOM.render(
     <AuthProvider {...oidcConfig}>
-        <App />
+        <ToastProvider>
+             <App />
+        </ToastProvider>
     </AuthProvider>, 
 document.getElementById('root'))
