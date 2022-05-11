@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import './app.styles.scss'
 import Image from './shared/image.jsx'
 import Text from './shared/text.jsx'
@@ -9,6 +9,7 @@ import LoadingSpinner from "./components/spinner/loadingSpinner.js";
 
 const App = () => {
   const [isDisabled, setIsdisabled] = useState(false)
+  const [error, setError] = useState(false)
 
   const {
     addToast,
@@ -36,6 +37,9 @@ const App = () => {
   //     auth.signinRedirect();
   //   }
   //   }, [auth]);
+
+  useEffect(() => { setError(auth?.error?.message)}, [auth.error]);
+
 
 
   if (auth.isLoading) {
@@ -131,10 +135,11 @@ const App = () => {
   return (
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading ? <LoadingSpinner /> : renderPortal}
-      {auth.error && addToast(content, { appearance: 'error',autoDismiss: true})}
+      {auth.error && addToast(error, { appearance: 'error',autoDismiss: true})}
     </div>
    )
  }
 }
 export default App
 
+// to show portal is loading is false and auth.isauthenticated. jekk !isauthenticated && signinredirect
