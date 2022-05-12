@@ -6,18 +6,12 @@ import classNames from 'classnames'
 import { useAuth } from "react-oidc-context"
 import { useToasts } from 'react-toast-notifications'
 import LoadingSpinner from "./components/spinner/loadingSpinner.js";
+import Button from './components/button/button.jsx'
 
 const App = () => {
   const [isDisabled, setIsdisabled] = useState(false)
-  const [error, setError] = useState(false)
   
-  const {
-    addToast,
-    removeToast,
-    removeAllToasts,
-    updateToast,
-    toastStack,
-  } = useToasts();
+  const { addToast } = useToasts();
 
   const button_class_names = classNames(
     'text-center',
@@ -59,20 +53,20 @@ const App = () => {
   //     });
   // }
 
-   if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
-      auth.signinRedirect().catch((resp) =>  addToast('Server Offline', { appearance: 'error',autoDismiss: true}))
-      ref.current = true
-  }
+  //  if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
+  //     auth.signinRedirect().catch((resp) =>  addToast('Server Offline', { appearance: 'error',autoDismiss: true}))
+  //     ref.current = true
+  // }
 
 
-  if (auth.isAuthenticated)
-    window.history.pushState({}, '', '/'); 
+  // if (auth.isAuthenticated)
+  //   window.history.pushState({}, '', '/'); 
 
 
   return (
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
-      {!auth.isLoading && auth.isAuthenticated &&
+      {true &&
       <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
       <div className='text-black lg:p-16 p-4 bg-white bg-opacity-50'>
         <div className='container mx-auto 2xl'>
@@ -80,52 +74,47 @@ const App = () => {
             <Image url='./assets/img/main-logo.png' />
           </div>
           <div className='grid grid-cols-3 gap-4 mt-16'>
-            <button
+            <Button
               className='btn text-center font-bold  bg-orange cursor-pointer rounded-xl'
               onClick={() => console.log('Hello')}
             >
-              <span>
               <Image
                 url='./assets/img/bullets.png'
                 width='150px'
                 className='m-auto'
               />
-              <Text as='p' size='text-lg' className='mb-4'>
+              <Text size='text-lg' className='mb-7'>
                 Dokumentarkiv
-              </Text>
-              </span>
-            </button>
-            <button
+              </Text>         
+            </Button>
+            <Button
               className='btn text-center font-bold bg-orange hover:border-4 cursor-pointer rounded-xl'
               onClick={() => console.log('Hello')}
-            ><span>
+            >
               <Image
                 url='./assets/img/bino.png'
                 width='150px'
                 className='m-auto'
               />
-              <Text as='p' size='text-lg' className='mb-4'>
+              <Text size='text-lg' className='mb-7'>
                 Fakturaoppfølging
               </Text>
-              </span>
-            </button>
-            <button
+            </Button>
+            <Button
               className={button_class_names}
               disabled={isDisabled}
               onClick={() => setIsdisabled((state) => !state)}
-            >
-              <span>
+            >  
               {isDisabled && <div id='overlay'></div>}
               <Image
                 url='./assets/img/watch.png'
                 width='150px'
                 className='m-auto'
               />
-              <Text size='text-lg' as='p' className='mb-4'>
+              <Text size='text-lg'  className='mb-7'>
                 Inkasso
               </Text>
-              </span>
-            </button>
+            </Button>
           </div>
         </div>
       </div>
