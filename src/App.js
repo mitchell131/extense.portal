@@ -66,7 +66,7 @@ const App = () => {
   return (
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
-      {true &&
+      {!auth.isLoading && auth.isAuthenticated &&
       <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
       <div className='text-black lg:p-16 p-4 bg-white bg-opacity-50'>
         <div className='container mx-auto 2xl'>
