@@ -9,10 +9,6 @@ But I check and can accept pull requests.
 
 React 17 Boilerplate with React 17, Webpack 6, Tailwind 2, HMR, using babel, Jest unit testing, sass, with a hot dev server and an optimized production build
 
-[Demo](https://dreamy-shirley-041c74.netlify.app/)
-
-Maintained by [Altafino - Full-Stack Go/JS Development](https://altafino.com)
-
 ## Last Changes (the newest first):
 
 - added full support for unit testing (with file mocks) using Jest
@@ -25,7 +21,6 @@ Maintained by [Altafino - Full-Stack Go/JS Development](https://altafino.com)
 ## Installation
 
 ```
-git clone https://github.com/altafino/react-webpack-5-tailwind-2.git
 cd react-webpack-5-tailwind-2
 yarn / npm i
 ```
