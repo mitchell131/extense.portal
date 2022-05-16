@@ -28,7 +28,6 @@ const App = () => {
   const ref = useRef(false)
 
   const auth = useAuth()
-  console.log(auth)
 
   if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
     auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
@@ -38,24 +37,19 @@ const App = () => {
 
   if (auth.isAuthenticated) {
     window.history.pushState({}, '', '/')
-    var singleSystem = auth.user?.profile.single_system;
+    var singleSystem = auth.user?.profile.single_system
     switch (singleSystem) {
       case "AO":
-        window.location.replace(process.env.AO_REDIRECT_URL);
-        break;
+        window.location.replace(process.env.AO_REDIRECT_URL)
+        return
       case "AI":
-        window.location.replace(process.env.AI_REDIRECT_URL);
-        break;
+        window.location.replace(process.env.AI_REDIRECT_URL)
+        return
       case "OO":
-        window.location.replace(process.env.OO_REDIRECT_URL);
-        break;
-      default:
-        console.log("NO CLAIM");
-        break;
-    };
+        window.location.replace(process.env.OO_REDIRECT_URL)
+        return
+    }
   }
-
-  if (auth.isAuthenticated) window.history.pushState({}, '', '/')
 
   return (
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
