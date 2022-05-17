@@ -36,33 +36,33 @@ const App = () => {
   },[auth.isAuthenticated , auth.isLoading])
 
 
-  // if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
-  //   auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
-  //   ref.current = true
-  // }
+  if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
+    auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
+    ref.current = true
+  }
 
-  // if (isAuthenticated) {
-  //   window.history.pushState({}, '', '/')
-  //   var singleSystem = auth.user?.profile.single_system
-  //   switch (singleSystem) {
-  //     case "AO":
-  //       window.location.replace(process.env.AO_REDIRECT_URL)
-  //       return
-  //     case "AI":
-  //       window.location.replace(process.env.AI_REDIRECT_URL)
-  //       return
-  //     case "OO":
-  //       window.location.replace(process.env.OO_REDIRECT_URL)
-  //       return
-  //   }
-  // }
+  if (isAuthenticated) {
+    window.history.pushState({}, '', '/')
+    var singleSystem = auth.user?.profile.single_system
+    switch (singleSystem) {
+      case "AO":
+        window.location.replace(process.env.AO_REDIRECT_URL)
+        return
+      case "AI":
+        window.location.replace(process.env.AI_REDIRECT_URL)
+        return
+      case "OO":
+        window.location.replace(process.env.OO_REDIRECT_URL)
+        return
+    }
+  }
 
   return (
     <>
     <Navbar onClickhandler={()=> auth.signoutRedirect()} isLoggedIn={isAuthenticated}/>
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
-      {true && (
+      {isAuthenticated && (
         <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
           <div className='text-black lg:p-16 p-4 bg-white bg-opacity-60'>
             <div className='container mx-auto 2xl'>
