@@ -11,7 +11,8 @@ module.exports = {
         white:colors.white,
         'yellow': '#EECC76',
         'orange': '#E3A60D',
-        'grey': '#7E91A1'
+        'grey': '#7E91A1',
+        'black': '#343A40'
       },
       minWidth: {
         '400': '400px',

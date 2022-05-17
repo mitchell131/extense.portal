@@ -7,6 +7,7 @@ import { useAuth } from 'react-oidc-context'
 import { useToasts } from 'react-toast-notifications'
 import LoadingSpinner from './components/spinner/loadingSpinner.js'
 import Button from './components/button/button.jsx'
+import Navbar from './components/navbar/navbar.jsx'
 
 const App = () => {
   const [isDisabled, setIsdisabled] = useState(false)
@@ -51,19 +52,21 @@ const App = () => {
   //     });
   // }
 
-  if (!auth.isAuthenticated && !auth.isLoading && !ref.current) {
-    auth.signinRedirect().catch((resp) => {
-      addToast('Server Offline', { appearance: 'error', autoDismiss: true })
-    })
-    ref.current = true
-  }
+  // if (!auth.isAuthenticated && !auth.isLoading && !ref.current) {
+  //   auth.signinRedirect().catch((resp) => {
+  //     addToast('Server Offline', { appearance: 'error', autoDismiss: true })
+  //   })
+  //   ref.current = true
+  // }
 
-  if (auth.isAuthenticated) window.history.pushState({}, '', '/')
+  // if (auth.isAuthenticated) window.history.pushState({}, '', '/')
 
   return (
+    <>
+    <Navbar />
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
-      {!auth.isLoading && auth.isAuthenticated && (
+      {true && (
         <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
           <div className='text-black lg:p-16 p-4 bg-white bg-opacity-60'>
             <div className='container mx-auto 2xl'>
@@ -144,6 +147,7 @@ const App = () => {
         </div>
       )}
     </div>
+    </>
   )
 }
 export default App
