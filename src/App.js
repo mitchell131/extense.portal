@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './app.styles.scss'
 import Image from './shared/image.jsx'
 import Text from './shared/text.jsx'
@@ -11,6 +11,7 @@ import Navbar from './components/navbar/navbar.jsx'
 
 const App = () => {
   const [isDisabled, setIsdisabled] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const { addToast } = useToasts()
 
@@ -27,15 +28,19 @@ const App = () => {
   )
 
   const ref = useRef(false)
-
   const auth = useAuth()
+
+  useEffect(()=> {
+    setIsAuthenticated(auth.isAuthenticated && !auth.isLoading)
+  },[auth.isAuthenticated , auth.isLoading])
+
 
   if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
     auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
     ref.current = true
   }
 
-  if (auth.isAuthenticated) {
+  if (isAuthenticated) {
     window.history.pushState({}, '', '/')
     var singleSystem = auth.user?.profile.single_system
     switch (singleSystem) {
@@ -53,10 +58,10 @@ const App = () => {
 
   return (
     <>
-    <Navbar onClickhandler={()=> auth.signoutRedirect()}/>
+    <Navbar onClickhandler={()=> auth.signoutRedirect()} isLoggedIn={isAuthenticated}/>
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
-      {!auth.isLoading && auth.isAuthenticated && (
+      {isAuthenticated && (
         <div className='w-3/5 min-w-650 max-w-5xl border shadow-lg'>
           <div className='text-black lg:p-16 p-4 bg-white bg-opacity-60'>
             <div className='container mx-auto 2xl'>
