@@ -29,38 +29,28 @@ const App = () => {
   const ref = useRef(false)
 
   const auth = useAuth()
-  console.log(auth)
 
-  // useEffect(() => {
-  //   if(auth && !auth.isAuthenticated) {
-  //     console.log("authenticating");
-  //     auth.signinRedirect();
-  //   }
-  //   }, [auth]);
-
-  // if (auth.isLoading) {
-  //   return <div>Loading...</div>
-  // }
-
-  // if (!auth.isAuthenticated && !auth.isLoading) {
-  //     auth.signinRedirect()
-  //     .then(function(finalResult) {
-  //       console.log('Got the final result: ' + finalResult);
-  //     })
-  //     .catch(() => {
-  //       addToast('Hello', { appearance: 'error',autoDismiss: true})
-  //     });
-  // }
-
-  if (!auth.isAuthenticated && !auth.isLoading && !ref.current) {
-    auth.signinRedirect().catch((resp) => {
-      addToast('Server Offline', { appearance: 'error', autoDismiss: true })
-    })
+  if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
+    auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
     ref.current = true
   }
 
-  if (auth.isAuthenticated) window.history.pushState({}, '', '/')
-  // !auth.isLoading && auth.isAuthenticated
+  if (auth.isAuthenticated) {
+    window.history.pushState({}, '', '/')
+    var singleSystem = auth.user?.profile.single_system
+    switch (singleSystem) {
+      case "AO":
+        window.location.replace(process.env.AO_REDIRECT_URL)
+        return
+      case "AI":
+        window.location.replace(process.env.AI_REDIRECT_URL)
+        return
+      case "OO":
+        window.location.replace(process.env.OO_REDIRECT_URL)
+        return
+    }
+  }
+
   return (
     <>
     <Navbar onClickhandler={()=> auth.signoutRedirect()}/>
@@ -76,7 +66,7 @@ const App = () => {
               <div className='grid grid-cols-3 gap-4 mt-16'>
                 <Button
                   className='btn text-center font-bold  bg-orange cursor-pointer rounded-xl'
-                  onClick={() => console.log('Hello')}
+                  onClick={() => window.location.replace(process.env.AI_REDIRECT_URL)}
                 >
                   <Image
                     url='./assets/img/bullets.png'
@@ -89,7 +79,7 @@ const App = () => {
                 </Button>
                 <Button
                   className='btn text-center font-bold bg-orange hover:border-4 cursor-pointer rounded-xl'
-                  onClick={() => console.log('Hello')}
+                  onClick={() => window.location.replace(process.env.AO_REDIRECT_URL)}
                 >
                   <Image
                     url='./assets/img/bino.png'
