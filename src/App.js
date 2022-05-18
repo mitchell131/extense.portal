@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <>
-    <Navbar onClickhandler={()=> auth.signoutRedirect()} isLoggedIn={isAuthenticated}/>
+    <Navbar onClickhandler={()=> auth.signoutRedirect()} isLoggedIn={isAuthenticated} userEmail={auth.user?.profile?.email}/>
     <div className='h-screen w-screen w-full wrapper flex justify-center items-center'>
       {auth.isLoading && <LoadingSpinner />}
       {isAuthenticated && (
