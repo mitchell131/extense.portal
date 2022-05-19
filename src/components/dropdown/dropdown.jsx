@@ -29,7 +29,7 @@ const Dropdown = ({ color, text = 'Username', onClickhandler}) => {
           <div className="relative inline-flex align-middle w-full">
             <button
               className={
-                "text-white font-bold uppercase text-sm px-6 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-3 mb-1 " +
+                "text-white font-bold uppercase text-sm px-6 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-10 mb-1 " +
                 bgColor
               }
               style={{ transition: "all .15s ease" }}
