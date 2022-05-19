@@ -1,5 +1,7 @@
 import React from 'react';
 import Popper from "popper.js";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Dropdown = ({ color, text = 'Username', onClickhandler}) => {
   // dropdown props
@@ -27,7 +29,7 @@ const Dropdown = ({ color, text = 'Username', onClickhandler}) => {
           <div className="relative inline-flex align-middle w-full">
             <button
               className={
-                "text-white font-bold uppercase text-sm px-6 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 " +
+                "text-white font-bold uppercase text-sm px-6 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-3 mb-1 " +
                 bgColor
               }
               style={{ transition: "all .15s ease" }}
@@ -39,27 +41,25 @@ const Dropdown = ({ color, text = 'Username', onClickhandler}) => {
                   : openDropdownPopover();
               }}
             >
-              {color === "white" ? "White Dropdown" : text}
+             <PersonIcon /> {color === "white" ? "White Dropdown" : text}
             </button>
             <div
               ref={popoverDropdownRef}
-              className={
-                (dropdownPopoverShow ? "block " : "hidden ") +
-                (color === "white" ? "bg-white " : bgColor + " ") +
-                "text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+              className={(dropdownPopoverShow ? "block " : "hidden ") +
+                (color === "white") +
+                "text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 bg-black"
               }
               style={{ minWidth: "12rem" }}
             >
               <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
               <a
-                href="#pablo"
                 className={
-                  "text-sm py-2 px-4 font-medium block w-full whitespace-no-wrap bg-transparent " +
+                  "text-sm py-2 px-4 font-medium block w-full whitespace-no-wrap " +
                   (color === "white" ? " text-gray-800" : "text-white")
                 }
                 onClick={onClickhandler}
               >
-                Logg ut
+               <LogoutIcon/><span className='ml-1'>Logg ut</span>
               </a>
             </div>
           </div>
