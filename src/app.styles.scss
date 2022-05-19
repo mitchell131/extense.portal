@@ -38,6 +38,11 @@ footer {
     }
   }
 
+  .btn {
+    &:hover{
+      background: #d69f13;
+    }
+  }
 
 #overlay {
     position: absolute;
