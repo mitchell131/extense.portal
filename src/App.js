@@ -36,26 +36,26 @@ const App = () => {
   },[auth.isAuthenticated , auth.isLoading])
 
 
-  // if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
-  //   auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
-  //   ref.current = true
-  // }
+  if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
+    auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
+    ref.current = true
+  }
 
-  // if (isAuthenticated) {
-  //   window.history.pushState({}, '', '/')
-  //   var singleSystem = auth.user?.profile.single_system
-  //   switch (singleSystem) {
-  //     case "AO":
-  //       window.location.replace(process.env.AO_REDIRECT_URL)
-  //       return
-  //     case "AI":
-  //       window.location.replace(process.env.AI_REDIRECT_URL)
-  //       return
-  //     case "OO":
-  //       window.location.replace(process.env.OO_REDIRECT_URL)
-  //       return
-  //   }
-  // }
+  if (isAuthenticated) {
+    window.history.pushState({}, '', '/')
+    var singleSystem = auth.user?.profile.single_system
+    switch (singleSystem) {
+      case "AO":
+        window.location.replace(process.env.AO_REDIRECT_URL)
+        return
+      case "AI":
+        window.location.replace(process.env.AI_REDIRECT_URL)
+        return
+      case "OO":
+        window.location.replace(process.env.OO_REDIRECT_URL)
+        return
+    }
+  }
 
   return (
     <>
