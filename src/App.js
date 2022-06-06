@@ -37,7 +37,7 @@ const App = () => {
 
 
   if (!auth.isAuthenticated && !auth.isLoading && ref.current === false) {
-    auth.signinRedirect().catch((resp) => addToast('Server Offline', { appearance: 'error', autoDismiss: true }))
+    auth.signinRedirect().catch((resp) => addToast('Login server is unavailable!', { appearance: 'error', autoDismiss: true }))
     ref.current = true
   }
 

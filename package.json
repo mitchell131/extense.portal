@@ -10,9 +10,9 @@
     "tailwind"
   ],
   "license": "MIT",
-  "name": "react-webpack-5-tailwind-2",
+  "name": "axactor-product-selector-portal",
   "version": "1.0.1",
-  "description": "Webpack 6 boilerplate with React 17, Tailwind 2, using babel, sass, with HMR and an optimized production build",
+  "description": "Axactor Product Selector Portal",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -31,7 +31,8 @@
   "scripts": {
     "test": "jest",
     "start": "webpack serve --config config/webpack.dev.js",
-    "build": "NODE_ENV=production webpack --config config/webpack.prod.js",
+    "startprod": "webpack serve --config config/webpack.prod.js",
+    "build": "webpack --config config/webpack.prod.js",
     "build-staging": "NODE_ENV=production webpack --config config/webpack.stag.js",
     "prettify": "yarn prettier \"**/*.*(js|jsx)\" --ignore-path=.prettierignore --write",
     "lint": "eslint src --ext .js,.jsx && yarn prettify",

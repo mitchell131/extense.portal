@@ -51,10 +51,10 @@ const Dropdown = ({ color, text = 'Username', onClickhandler}) => {
               }
               style={{ minWidth: "12rem" }}
             >
-              <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
+              <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-2" />
               <a
                 className={
-                  "text-sm py-2 px-4 font-medium block w-full whitespace-no-wrap " +
+                  "cursor-pointer text-sm py-2 px-4 font-medium block w-full whitespace-no-wrap " +
                   (color === "white" ? " text-gray-800" : "text-white")
                 }
                 onClick={onClickhandler}
