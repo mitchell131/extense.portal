@@ -28,7 +28,7 @@ ReactDOM.render(
                     <Route path="/actuator/health" element={<Health />} />
                     <Route path="/actuator/health/readiness" element={<Health />} />
                     <Route path="/actuator/health/liveness" element={<Health />} />
-                    <Route path="/actuator/health/startyup" element={<Health />} />
+                    <Route path="/actuator/health/startup" element={<Health />} />
                 </Routes>
             </BrowserRouter>
         </ToastProvider>
