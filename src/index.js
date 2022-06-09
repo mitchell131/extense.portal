@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom'
 import App from './App'
+import Health from './components/health/health.jsx'
 import { AuthProvider } from "react-oidc-context";
-import { ToastProvider, useToasts } from 'react-toast-notifications';
+import { ToastProvider } from 'react-toast-notifications';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './index.scss'
 
@@ -18,7 +20,17 @@ const oidcConfig = {
 ReactDOM.render(
     <AuthProvider {...oidcConfig}>
         <ToastProvider>
-             <App />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/signin-oidc" element={<App />} />
+                    <Route path="/actuator" element={<Health />} />
+                    <Route path="/actuator/health" element={<Health />} />
+                    <Route path="/actuator/health/readiness" element={<Health />} />
+                    <Route path="/actuator/health/liveness" element={<Health />} />
+                    <Route path="/actuator/health/startyup" element={<Health />} />
+                </Routes>
+            </BrowserRouter>
         </ToastProvider>
     </AuthProvider>, 
 document.getElementById('root'))
